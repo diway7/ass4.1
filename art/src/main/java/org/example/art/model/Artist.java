@@ -11,19 +11,30 @@ public class Artist {
 
     public Artist() {}
 
-    public Artist(int id, String name, String surname, String country, int birthYear) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.country = country;
-        this.birthYear = birthYear;
+    private Artist(Builder builder) {
+        this.id = builder.id;
+        this.name = builder.name;
+        this.surname = builder.surname;
+        this.birthYear = builder.birthYear;
+        this.country = builder.country;
     }
 
-    public Artist(String name, String surname, String country, int birthYear) {
-        this.name = name;
-        this.surname = surname;
-        this.country = country;
-        this.birthYear = birthYear;
+    public static class Builder {
+        private int id;
+        private String name;
+        private String surname;
+        private int birthYear;
+        private String country;
+
+        public Builder id(int id) { this.id = id; return this; }
+        public Builder name(String name) { this.name = name; return this; }
+        public Builder surname(String surname) { this.surname = surname; return this; }
+        public Builder birthYear(int birthYear) { this.birthYear = birthYear; return this; }
+        public Builder country(String country) { this.country = country; return this; }
+
+        public Artist build() {
+            return new Artist(this);
+        }
     }
 
     public int getId() {

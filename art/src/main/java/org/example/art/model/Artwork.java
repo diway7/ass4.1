@@ -14,14 +14,39 @@ public class Artwork {
 
     public Artwork() {}
 
-    public Artwork(String title, int yearCreated, String medium, int cost, boolean isAvailable, Artist artist, Integer galleryId) {
-        this.title = title;
-        this.yearCreated = yearCreated;
-        this.medium = medium;
-        this.cost = cost;
-        this.isAvailable = isAvailable;
-        this.artist = artist;
-        this.galleryId = galleryId;
+    private Artwork(Builder builder) {
+        this.id = builder.id;
+        this.title = builder.title;
+        this.yearCreated = builder.yearCreated;
+        this.cost = builder.cost;
+        this.artist = builder.artist;
+        this.galleryId = builder.galleryId;
+        this.medium = builder.medium;
+        this.isAvailable = builder.isAvailable;
+    }
+
+    public static class Builder {
+        private int id;
+        private String title;
+        private int yearCreated;
+        private int cost;
+        private Artist artist;
+        private Integer galleryId;
+        private String medium;
+        private boolean isAvailable;
+
+        public Builder id(int id) { this.id = id; return this; }
+        public Builder title(String title) { this.title = title; return this; }
+        public Builder yearCreated(int yearCreated) { this.yearCreated = yearCreated; return this; }
+        public Builder cost(int cost) { this.cost = cost; return this; }
+        public Builder artist(Artist artist) { this.artist = artist; return this; }
+        public Builder galleryId(Integer galleryId) { this.galleryId = galleryId; return this; }
+        public Builder medium(String medium) { this.medium = medium; return this; }
+        public Builder isAvailable(boolean isAvailable) { this.isAvailable = isAvailable; return this; }
+
+        public Artwork build() {
+            return new Artwork(this);
+        }
     }
 
     public int getId() {

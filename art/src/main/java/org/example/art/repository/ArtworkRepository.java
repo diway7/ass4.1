@@ -17,24 +17,23 @@ public class ArtworkRepository {
     }
 
     private final RowMapper<Artwork> artworkRowMapper = (rs, rowNum) -> {
-        Artist artist = new Artist(
-                rs.getInt("artist_id"),
-                rs.getString("first_name"),
-                rs.getString("last_name"),
-                rs.getString("country"),
-                rs.getInt("birth_year")
-        );
-        Artwork artwork = new Artwork(
-                rs.getString("title"),
-                rs.getInt("year"),
-                rs.getString("medium"),
-                rs.getInt("price"),
-                rs.getBoolean("is_for_sale"),
-                artist,
-                (Integer) rs.getObject("gallery_id")
-        );
-        artwork.setId(rs.getInt("artwork_id"));
-        return artwork;
+        Artist artist = new Artist.Builder()
+                .id(rs.getInt("artist_id"))
+                .name(rs.getString("first_name"))
+                .surname(rs.getString("last_name"))
+                .country(rs.getString("country"))
+                .birthYear(rs.getInt("birth_year"))
+                .build();
+        return new Artwork.Builder()
+                .id(rs.getInt("artwork_id"))
+                .title(rs.getString("title"))
+                .yearCreated(rs.getInt("year"))
+                .medium(rs.getString("medium"))
+                .cost(rs.getInt("price"))
+                .isAvailable(rs.getBoolean("is_for_sale"))
+                .artist(artist)
+                .galleryId((Integer) rs.getObject("gallery_id"))
+                .build();
     };
 
     public List<Artwork> findAll() {

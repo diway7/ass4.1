@@ -1,7 +1,7 @@
 package org.example.art.controller;
 
-import org.example.art.model.Artwork;
-import org.example.art.repository.ArtworkRepository;
+import org.example.art.dto.ArtworkDTO;
+import org.example.art.service.ArtworkService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,14 +12,14 @@ import java.util.List;
 @RequestMapping("/api/artworks")
 public class ArtworkController {
 
-    private final ArtworkRepository artworkRepository;
+    private final ArtworkService artworkService;
 
-    public ArtworkController(ArtworkRepository artworkRepository) {
-        this.artworkRepository = artworkRepository;
+    public ArtworkController(ArtworkService artworkService) {
+        this.artworkService = artworkService;
     }
 
     @GetMapping
-    public List<Artwork> getAllArtworks() {
-        return artworkRepository.findAll();
+    public List<ArtworkDTO> getAllArtworks() {
+        return artworkService.getAllArtworks();
     }
 }

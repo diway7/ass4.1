@@ -15,13 +15,13 @@ public class ArtistRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    private final RowMapper<Artist> artistRowMapper = (rs, rowNum) -> new Artist(
-            rs.getInt("artist_id"),
-            rs.getString("first_name"),
-            rs.getString("last_name"),
-            rs.getString("country"),
-            rs.getInt("birth_year")
-    );
+    private final RowMapper<Artist> artistRowMapper = (rs, rowNum) -> new Artist.Builder()
+            .id(rs.getInt("artist_id"))
+            .name(rs.getString("first_name"))
+            .surname(rs.getString("last_name"))
+            .country(rs.getString("country"))
+            .birthYear(rs.getInt("birth_year"))
+            .build();
 
     public List<Artist> findAll() {
         return jdbcTemplate.query("SELECT * FROM artist ORDER BY artist_id", artistRowMapper);
